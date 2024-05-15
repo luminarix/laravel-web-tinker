@@ -16,11 +16,11 @@ class LaravelWebTinkerServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../config/web-tinker.php' => config_path('web-tinker.php'),
-            ], 'config');
+            ], 'laravel-web-tinker-config');
 
             $this->publishes([
                 __DIR__ . '/../resources/views' => base_path('resources/views/vendor/web-tinker'),
-            ], 'views');
+            ], 'laravel-web-tinker-views');
 
             $this->publishes([
                 __DIR__ . '/../dist' => public_path('vendor/web-tinker'),
