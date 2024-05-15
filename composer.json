@@ -13,6 +13,16 @@
             "name": "Luminarix Labs",
             "email": "hello@luminarix.dev",
             "role": "Developer"
+        },
+        {
+            "name": "Lajos Gere",
+            "email": "streetnoizenova@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Mark Magyar",
+            "email": "notpsychopath@proton.me",
+            "role": "Developer"
         }
     ],
     "require": {
