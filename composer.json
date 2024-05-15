@@ -1,12 +1,12 @@
 {
-    "name": "luminarix/:package_slug",
-    "description": ":package_description",
+    "name": "luminarix/laravel-web-tinker",
+    "description": "Small Laravel package to use Tinker in your browser",
     "keywords": [
         "Luminarix Labs",
         "laravel",
-        ":package_slug"
+        "laravel-web-tinker"
     ],
-    "homepage": "https://github.com/luminarix/:package_slug",
+    "homepage": "https://github.com/luminarix/laravel-web-tinker",
     "license": "MIT",
     "authors": [
         {
@@ -34,13 +34,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Luminarix\\Skeleton\\": "src/",
-            "Luminarix\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Luminarix\\LaravelWebTinker\\": "src/",
+            "Luminarix\\LaravelWebTinker\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Luminarix\\Skeleton\\Tests\\": "tests/"
+            "Luminarix\\LaravelWebTinker\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -59,10 +59,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Luminarix\\Skeleton\\SkeletonServiceProvider"
+                "Luminarix\\LaravelWebTinker\\LaravelWebTinkerServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Luminarix\\Skeleton\\Facades\\Skeleton"
+                "LaravelWebTinker": "Luminarix\\LaravelWebTinker\\Facades\\LaravelWebTinker"
             }
         }
     },

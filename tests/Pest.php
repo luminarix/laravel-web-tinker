@@ -1,5 +1,5 @@
 <?php
 
-use Luminarix\Skeleton\Tests\TestCase;
+use Luminarix\LaravelWebTinker\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

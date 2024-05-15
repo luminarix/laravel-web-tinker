@@ -1,9 +1,9 @@
 <?php
 
-namespace Luminarix\Skeleton\Tests;
+namespace Luminarix\LaravelWebTinker\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Luminarix\Skeleton\SkeletonServiceProvider;
+use Luminarix\LaravelWebTinker\LaravelWebTinkerServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -13,14 +13,14 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Luminarix\\Skeleton\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Luminarix\\LaravelWebTinker\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            SkeletonServiceProvider::class,
+            LaravelWebTinkerServiceProvider::class,
         ];
     }
 }

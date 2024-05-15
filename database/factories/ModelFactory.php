@@ -1,6 +1,6 @@
 <?php
 
-namespace Luminarix\Skeleton\Database\Factories;
+namespace Luminarix\LaravelWebTinker\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

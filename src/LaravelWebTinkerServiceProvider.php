@@ -1,12 +1,12 @@
 <?php
 
-namespace Luminarix\Skeleton;
+namespace Luminarix\LaravelWebTinker;
 
-use Luminarix\Skeleton\Commands\SkeletonCommand;
+use Luminarix\LaravelWebTinker\Commands\LaravelWebTinkerCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class LaravelWebTinkerServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('laravel-web-tinker')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_skeleton_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_laravel-web-tinker_table')
+            ->hasCommand(LaravelWebTinkerCommand::class);
     }
 }
