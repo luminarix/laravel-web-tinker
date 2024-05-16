@@ -25,7 +25,7 @@ This package can run arbitrary code. Unless you know what you are doing, you sho
   - Tabs can be renamed
   - Tabs have their own code history
   - Both of the above are saved in local storage, so they persist between sessions and page reloads
-- Run-time of the code is displayed
+- Runtime counter displayed while loading and total runtime displayed in the final output
 - Loading state is displayed while the code is running
 
 ## Installation
