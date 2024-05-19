@@ -211,14 +211,14 @@ export default function Editor({ path }: { path: string }) {
                             </span>
                         ): (
                             <Button
-                                className="h-8 w-8 hover:bg-gray-800"
+                                className="h-8 w-8 hover:bg-gray-800 text-gray-400 hover:text-gray-50"
                                 size="icon"
                                 variant="ghost"
                                 onClick={() => {
                                     sendCurrentCode();
                                 }}
                             >
-                                <PlayIcon className="h-4 w-4 text-gray-400 hover:text-gray-50" />
+                                <PlayIcon className="h-4 w-4" />
                                 <span className="sr-only">Run</span>
                             </Button>
                         )}
@@ -240,32 +240,32 @@ export default function Editor({ path }: { path: string }) {
                                     className="py-2 px-4 text-white bg-gray-700"
                                 />
                             ) : (
-                                <button
+                                <Button
                                     key={tab}
-                                    className={`py-2 px-4 hover:bg-gray-800 ${tab === activeTab ? "text-white bg-gray-700" : "text-gray-400"}`}
+                                    className={`ml-1 py-2 px-4 hover:bg-gray-800 ${tab === activeTab ? "text-white bg-gray-700" : "text-gray-400"}`}
                                     onClick={() => selectTab(tab)}
                                     onDoubleClick={() => handleDoubleClick(tab)}
                                 >
                                     {valueInStorage(editorTabNameKey, tab) ||
                                         tab}
-                                </button>
+                                </Button>
                             ),
                         )}
-                        <button
-                            className="py-2 px-4 text-gray-400"
+                        <Button
+                            className="ml-1 py-2 px-4 hover:bg-gray-800 text-gray-400"
                             onClick={() => addTab()}
                         >
                             +
-                        </button>
+                        </Button>
                     </div>
                     {tabs.length > 1 && (
-                        <button
+                        <Button
                             key="delete"
-                            className={`py-2 px-4 hover:bg-gray-800 text-gray-400`}
+                            className={`ml-1 py-2 px-4 hover:bg-gray-800 text-red-800 hover:text-red-400`}
                             onClick={() => deleteTab(activeTab)}
                         >
-                            <TrashIcon className="h-3 w-3 text-red-800 hover:text-red-400" />
-                        </button>
+                            <TrashIcon className="h-3 w-3" />
+                        </Button>
                     )}
                 </div>
                 <div className="flex-1 overflow-auto text-gray-400">
