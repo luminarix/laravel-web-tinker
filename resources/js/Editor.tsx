@@ -194,6 +194,7 @@ export default function Editor({ path }: { path: string }) {
         <Splitter
             minHeights={[0, 0]}
             initialSizes={[50, 50]}
+            minWidths={[500,500]}
             direction={SplitDirection.Horizontal}
             gutterClassName={"bg-gray-800 min-h-screen"}
         >
