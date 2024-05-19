@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-web-tinker` will be documented in this file.
 
+## v0.1.4 - 2024-05-19
+
+**Full Changelog**: https://github.com/luminarix/laravel-web-tinker/compare/v0.1.3...v0.1.4
+
 ## v0.1.3 - 2024-05-19
 
 ### What's Changed
