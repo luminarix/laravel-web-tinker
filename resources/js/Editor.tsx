@@ -299,9 +299,7 @@ export default function Editor({ path }: { path: string }) {
                                   }
                                 : undefined
                         }
-                        onChange={(value, viewUpdate) =>
-                            handleChange(value, viewUpdate)
-                        }
+                        onChange={handleChange}
                     />
                 </div>
             </div>
