@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import CodeIcon from '@/components/icons/CodeIcon';
 import PlayIcon from '@/components/icons/PlayIcon';
 import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
+import { EditorView } from "@codemirror/view"
 import { php } from '@codemirror/lang-php';
 import { githubDark } from '@uiw/codemirror-theme-github';
 import { historyField } from '@codemirror/commands';
@@ -278,6 +279,7 @@ export default function Editor({ path }: { path: string }) {
                             php({
                                 plain: true,
                             }),
+                            EditorView.lineWrapping,
                         ]}
                         autoFocus={true}
                         basicSetup={{
