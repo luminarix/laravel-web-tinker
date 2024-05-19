@@ -52,25 +52,23 @@ export default function Editor({ path }: { path: string }) {
         }
 
         return () => clearInterval(interval);
-    }, [startTime]);
+    }, [loading, startTime]);
 
     useEffect(() => {
         const nextState = valueInStorage(editorStateKey, activeTab);
 
-        setState(() => nextState || "");
+        setState(nextState || "");
     }, [activeTab]);
 
-    if (tabs.length === 0) {
-        addTab();
-    }
+    useEffect(() => {
+        if (tabs.length === 0) {
+            addTab();
+        }
+    }, [tabs]);
 
     function handleDoubleClick(tabIndex: number) {
         setEditableTab(tabIndex);
-        setTempTabName(
-            valueInStorage(editorTabNameKey, tabIndex) === ""
-                ? `${tabIndex}`
-                : valueInStorage(editorTabNameKey, tabIndex),
-        );
+        setTempTabName(valueInStorage(editorTabNameKey, tabIndex) || `${tabIndex}`);
     }
 
     function handleNameChange(event: React.KeyboardEvent) {
@@ -78,9 +76,7 @@ export default function Editor({ path }: { path: string }) {
             setEditableTab(null);
 
             valueInStorage(editorTabNameKey, editableTab!, tempTabName);
-        }
-
-        if (event.key === "Escape") {
+        } else if (event.key === "Escape") {
             setEditableTab(null);
         }
     }
@@ -121,16 +117,16 @@ export default function Editor({ path }: { path: string }) {
         if (event.code === "Enter" && (event.ctrlKey || event.metaKey)) {
             event.preventDefault();
             event.stopPropagation();
-            sendCurrentCode();
+            void sendCurrentCode();
 
             return false;
         }
     }
 
-    function sendCurrentCode() {
+    async function sendCurrentCode() {
         const code = valueInStorage(editorValueKey, activeTab);
 
-        if (code === "") {
+        if (!code) {
             return;
         }
 
@@ -138,19 +134,16 @@ export default function Editor({ path }: { path: string }) {
         setLoading(true);
         setStartTime(Date.now());
 
-        axios
-            .post(path, { code })
-            .then((result) => {
-                setOutput(() => result.data);
-            })
-            .catch((error) => {
-                console.error("Error executing code:", error);
-            })
-            .finally(() => {
-                setLoading(false);
-                setElapsedTime(0);
-                setStartTime(0);
-            });
+        try {
+            const result = await axios.post(path, { code });
+            setOutput(result.data);
+        } catch (error) {
+            console.error("Error executing code:", error);
+        } finally {
+            setLoading(false);
+            setElapsedTime(0);
+            setStartTime(0);
+        }
     }
 
     function handleChange(value: string, viewUpdate: ViewUpdate) {
@@ -163,7 +156,7 @@ export default function Editor({ path }: { path: string }) {
 
     function addTab() {
         const newTabIndex = (tabs[tabs.length - 1] ?? 0) + 1;
-        setTabs((prevTabs) => [...prevTabs, newTabIndex]);
+        setTabs((prevTabs: number[]) => [...prevTabs, newTabIndex]);
         valueInStorage(editorValueKey, newTabIndex, "");
         selectTab(newTabIndex);
     }
@@ -174,12 +167,12 @@ export default function Editor({ path }: { path: string }) {
     }
 
     function deleteTab(tabIndex: number) {
-        const newTabs = tabs.filter((tab) => tab !== tabIndex);
-        setTabs(() => newTabs);
+        const newTabs = tabs.filter((tab: number) => tab !== tabIndex);
+        setTabs(newTabs);
         valueInStorage(editorValueKey, tabIndex, null);
         valueInStorage(editorStateKey, tabIndex, null);
 
-        if (activeTab === tabIndex) {
+        if (activeTab === tabIndex && newTabs.length > 0) {
             selectTab(newTabs[newTabs.length - 1]);
         }
     }
@@ -189,6 +182,8 @@ export default function Editor({ path }: { path: string }) {
 
         return Array.from({ length }, () => Math.random());
     }
+
+    console.log(tabs);
 
     return (
         <Splitter
@@ -216,9 +211,7 @@ export default function Editor({ path }: { path: string }) {
                                 className="h-8 w-8 hover:bg-gray-800 text-gray-400 hover:text-gray-50"
                                 size="icon"
                                 variant="ghost"
-                                onClick={() => {
-                                    sendCurrentCode();
-                                }}
+                                onClick={sendCurrentCode}
                             >
                                 <PlayIcon className="h-4 w-4" />
                                 <span className="sr-only">Run</span>
@@ -228,7 +221,7 @@ export default function Editor({ path }: { path: string }) {
                 </div>
                 <div className="border-b border-gray-800 flex justify-between">
                     <div>
-                        {tabs.map((tab) =>
+                        {tabs.map((tab: number) =>
                             editableTab === tab ? (
                                 <input
                                     type="text"
