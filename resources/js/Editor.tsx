@@ -183,8 +183,6 @@ export default function Editor({ path }: { path: string }) {
         return Array.from({ length }, () => Math.random());
     }
 
-    console.log(tabs);
-
     return (
         <Splitter
             minHeights={[0, 0]}
