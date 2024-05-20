@@ -187,7 +187,7 @@ export default function Editor({ path }: { path: string }) {
     return (
         <Splitter
             minHeights={[0, 0]}
-            initialSizes={(localStorage.getItem(splitterStateKey) || "0,0").split(",").map(Number)}
+            initialSizes={(localStorage.getItem(splitterStateKey) || "50,50").split(",").map(Number)}
             minWidths={[500,500]}
             direction={SplitDirection.Horizontal}
             gutterClassName={"bg-gray-800 min-h-screen"}
