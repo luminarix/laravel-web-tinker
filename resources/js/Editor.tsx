@@ -20,6 +20,7 @@ const editorStateKey = "editorState";
 const editorValueKey = "editorValue";
 const editorTabNameKey = "editorTabName";
 const selectedTabKey = "selectedTab";
+const splitterStateKey = "splitterState";
 
 export default function Editor({ path }: { path: string }) {
     const [output, setOutput] = useState("");
@@ -186,10 +187,11 @@ export default function Editor({ path }: { path: string }) {
     return (
         <Splitter
             minHeights={[0, 0]}
-            initialSizes={[50, 50]}
+            initialSizes={(localStorage.getItem(splitterStateKey) || "0,0").split(",").map(Number)}
             minWidths={[500,500]}
             direction={SplitDirection.Horizontal}
             gutterClassName={"bg-gray-800 min-h-screen"}
+            onResizeFinished={(_, newSizes) => localStorage.setItem(splitterStateKey, newSizes.join(","))}
         >
             <div className="h-screen flex flex-col border-r bg-gray-900 border-gray-800">
                 <div className="flex h-14 items-center justify-between border-b px-4 border-gray-800">
