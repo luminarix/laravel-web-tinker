@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-web-tinker` will be documented in this file.
 
+## v0.1.5 - 2024-05-26
+
+### What's Changed
+
+* Preserve Splitter state by @gere-lajos in https://github.com/luminarix/laravel-web-tinker/pull/2
+* Organize codebase by @gere-lajos in https://github.com/luminarix/laravel-web-tinker/pull/3
+* Code readability changes, modernization by @xHeaven in https://github.com/luminarix/laravel-web-tinker/pull/4
+
+### New Contributors
+
+* @xHeaven made their first contribution in https://github.com/luminarix/laravel-web-tinker/pull/4
+
+**Full Changelog**: https://github.com/luminarix/laravel-web-tinker/compare/v0.1.4...v0.1.5
+
 ## v0.1.4 - 2024-05-19
 
 **Full Changelog**: https://github.com/luminarix/laravel-web-tinker/compare/v0.1.3...v0.1.4
