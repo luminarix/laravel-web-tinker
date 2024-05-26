@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import Splitter, { SplitDirection } from '@devbookhq/splitter';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { generateRandomArray } from './lib/utils';
+import { generateRandomArray, valueInStorage, valueInStorageAsNumber, valueInStorageAsNumbers } from './lib/utils';
 import Header from './components/Header';
 import TabList from './components/TabList';
 import CodeEditor from './components/CodeEditor';
@@ -19,20 +19,11 @@ const splitterStateKey = "splitterState";
 
 export default function Editor({ path }: { path: string }) {
     const [output, setOutput] = useState("");
-    const [tabs, setTabs] = useState(
-        Object.keys(
-            JSON.parse(localStorage.getItem(editorValueKey) || "{}"),
-        ).map(Number),
-    );
-    const [activeTab, setActiveTab] = useState(
-        parseInt(localStorage.getItem(selectedTabKey) || "1"),
-    );
-    const [state, setState] = useState(
-        valueInStorage(editorStateKey, activeTab),
-    );
+    const [tabs, setTabs] = useState(valueInStorageAsNumbers(editorValueKey));
+    const [activeTab, setActiveTab] = useState(valueInStorageAsNumber(selectedTabKey));
+    const [state, setState] = useState(valueInStorage(editorStateKey, activeTab));
     const [loading, setLoading] = useState(false);
     const [startTime, setStartTime] = useState(0);
-
     const [_, setElapsedTime] = useState(0);
     const skeletonWidths = useRef(generateRandomArray());
 
@@ -59,38 +50,6 @@ export default function Editor({ path }: { path: string }) {
             addTab();
         }
     }, [tabs]);
-
-    function valueInStorage(
-        storageKey: string,
-        tabIndex: number,
-        value: string | null | undefined = undefined,
-    ) {
-        const storedValueString = localStorage.getItem(storageKey) || "{}";
-        let storedValue;
-
-        try {
-            storedValue = JSON.parse(storedValueString);
-        } catch (error) {
-            console.error("Error parsing JSON from localStorage:", error);
-            storedValue = {};
-        }
-
-        if (value === undefined) {
-            return storedValue[tabIndex] || "";
-        }
-
-        if (value === null) {
-            delete storedValue[tabIndex];
-        } else {
-            storedValue[tabIndex] = value;
-        }
-
-        try {
-            localStorage.setItem(storageKey, JSON.stringify(storedValue));
-        } catch (error) {
-            console.error("Error stringifying JSON for localStorage:", error);
-        }
-    }
 
     function handleKeyDown(event: React.KeyboardEvent) {
         if (event.code === "Enter" && (event.ctrlKey || event.metaKey)) {
