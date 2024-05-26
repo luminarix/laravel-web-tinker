@@ -1,8 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card';
-import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
-import { EditorView } from "@codemirror/view"
-import { php } from '@codemirror/lang-php';
-import { githubDark } from '@uiw/codemirror-theme-github';
+import { ViewUpdate } from '@uiw/react-codemirror';
 import { historyField } from '@codemirror/commands';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
@@ -13,6 +10,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { generateRandomArray } from './lib/utils';
 import Header from './components/Header';
 import TabList from './components/TabList';
+import CodeEditor from './components/CodeEditor';
 
 const stateFields = { history: historyField };
 const editorStateKey = "editorState";
@@ -181,38 +179,12 @@ export default function Editor({ path }: { path: string }) {
                     onRenameTab={(tabIndex, tabName) => valueInStorage(editorTabNameKey, tabIndex, tabName)}
                 />
                 <div className="flex-1 overflow-auto text-gray-400">
-                    <CodeMirror
-                        key={activeTab}
-                        onKeyDownCapture={(event) => handleKeyDown(event)}
-                        height="100%"
-                        theme={githubDark}
-                        extensions={[
-                            php({
-                                plain: true,
-                            }),
-                            EditorView.lineWrapping,
-                        ]}
-                        autoFocus={true}
-                        basicSetup={{
-                            allowMultipleSelections: true,
-                            tabSize: 4,
-                            bracketMatching: true,
-                            autocompletion: true,
-                            rectangularSelection: true,
-                            highlightActiveLine: true,
-                            syntaxHighlighting: true,
-                        }}
-                        className="h-full"
+                    <CodeEditor
                         value={valueInStorage(editorValueKey, activeTab)}
-                        initialState={
-                            state
-                                ? {
-                                      json: JSON.parse(state || ""),
-                                      fields: stateFields,
-                                  }
-                                : undefined
-                        }
+                        state={state}
+                        stateFields={stateFields}
                         onChange={handleChange}
+                        onKeyDownCapture={handleKeyDown}
                     />
                 </div>
             </div>
