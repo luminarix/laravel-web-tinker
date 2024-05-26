@@ -1,7 +1,4 @@
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import CodeIcon from '@/components/icons/CodeIcon';
-import PlayIcon from '@/components/icons/PlayIcon';
 import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import { EditorView } from "@codemirror/view"
 import { php } from '@codemirror/lang-php';
@@ -10,12 +7,12 @@ import { historyField } from '@codemirror/commands';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import parse from 'html-react-parser';
-import TrashIcon from './components/icons/TrashIcon';
 import Splitter, { SplitDirection } from '@devbookhq/splitter';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { generateRandomArray } from './lib/utils';
 import Header from './components/Header';
+import TabList from './components/TabList';
 
 const stateFields = { history: historyField };
 const editorStateKey = "editorState";
@@ -37,12 +34,10 @@ export default function Editor({ path }: { path: string }) {
     const [state, setState] = useState(
         valueInStorage(editorStateKey, activeTab),
     );
-    const [editableTab, setEditableTab] = useState<number | null>(null);
-    const [tempTabName, setTempTabName] = useState("");
     const [loading, setLoading] = useState(false);
     const [startTime, setStartTime] = useState(0);
 
-    const [elapsedTime, setElapsedTime] = useState(0);
+    const [_, setElapsedTime] = useState(0);
     const skeletonWidths = useRef(generateRandomArray());
 
     useEffect(() => {
@@ -68,21 +63,6 @@ export default function Editor({ path }: { path: string }) {
             addTab();
         }
     }, [tabs]);
-
-    function handleDoubleClick(tabIndex: number) {
-        setEditableTab(tabIndex);
-        setTempTabName(valueInStorage(editorTabNameKey, tabIndex) || `${tabIndex}`);
-    }
-
-    function handleNameChange(event: React.KeyboardEvent) {
-        if (event.key === "Enter") {
-            setEditableTab(null);
-
-            valueInStorage(editorTabNameKey, editableTab!, tempTabName);
-        } else if (event.key === "Escape") {
-            setEditableTab(null);
-        }
-    }
 
     function valueInStorage(
         storageKey: string,
@@ -191,50 +171,15 @@ export default function Editor({ path }: { path: string }) {
         >
             <div className="h-screen flex flex-col border-r bg-gray-900 border-gray-800">
                 <Header loading={loading} onRun={sendCurrentCode} />
-                <div className="border-b border-gray-800 flex justify-between">
-                    <div>
-                        {tabs.map((tab: number) =>
-                            editableTab === tab ? (
-                                <input
-                                    type="text"
-                                    value={tempTabName}
-                                    onChange={(e) =>
-                                        setTempTabName(e.target.value)
-                                    }
-                                    onKeyDownCapture={handleNameChange}
-                                    onBlur={() => setEditableTab(null)}
-                                    autoFocus
-                                    className="py-2 px-4 text-white bg-gray-700"
-                                />
-                            ) : (
-                                <Button
-                                    key={tab}
-                                    className={`ml-1 py-2 px-4 hover:bg-gray-800 ${tab === activeTab ? "text-white bg-gray-700" : "text-gray-400"}`}
-                                    onClick={() => selectTab(tab)}
-                                    onDoubleClick={() => handleDoubleClick(tab)}
-                                >
-                                    {valueInStorage(editorTabNameKey, tab) ||
-                                        tab}
-                                </Button>
-                            ),
-                        )}
-                        <Button
-                            className="ml-1 py-2 px-4 hover:bg-gray-800 text-gray-400"
-                            onClick={() => addTab()}
-                        >
-                            +
-                        </Button>
-                    </div>
-                    {tabs.length > 1 && (
-                        <Button
-                            key="delete"
-                            className={`ml-1 py-2 px-4 hover:bg-gray-800 text-red-800 hover:text-red-400`}
-                            onClick={() => deleteTab(activeTab)}
-                        >
-                            <TrashIcon className="h-3 w-3" />
-                        </Button>
-                    )}
-                </div>
+                <TabList
+                    tabs={tabs}
+                    tabNames={JSON.parse(localStorage.getItem(editorTabNameKey) || "{}")}
+                    activeTab={activeTab}
+                    onAddTab={addTab}
+                    onSelectTab={selectTab}
+                    onDeleteTab={deleteTab}
+                    onRenameTab={(tabIndex, tabName) => valueInStorage(editorTabNameKey, tabIndex, tabName)}
+                />
                 <div className="flex-1 overflow-auto text-gray-400">
                     <CodeMirror
                         key={activeTab}
