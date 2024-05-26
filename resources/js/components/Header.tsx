@@ -9,8 +9,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ loading, onRun }) => {
-    const [elapsedTime, setElapsedTime] = useState(0);
-    const [startTime, setStartTime] = useState(0);
+    const [ elapsedTime, setElapsedTime ] = useState(0);
+    const [ startTime, setStartTime ] = useState(0);
 
     useEffect(() => {
         let interval: NodeJS.Timeout;
@@ -26,12 +26,12 @@ const Header: React.FC<HeaderProps> = ({ loading, onRun }) => {
         }
 
         return () => clearInterval(interval);
-    }, [loading, startTime]);
+    }, [ loading, startTime ]);
 
     return (
         <div className="flex h-14 items-center justify-between border-b px-4 border-gray-800">
             <div className="flex items-center gap-2">
-                <CodeIcon className="h-5 w-5 mr-2 text-gray-400" />
+                <CodeIcon className="h-5 w-5 mr-2 text-gray-400"/>
                 <span className="text-lg font-medium text-gray-50">
                     Laravel Web Tinker
                 </span>
@@ -48,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({ loading, onRun }) => {
                         variant="ghost"
                         onClick={onRun}
                     >
-                        <PlayIcon className="h-4 w-4" />
+                        <PlayIcon className="h-4 w-4"/>
                         <span className="sr-only">Run</span>
                     </Button>
                 )}

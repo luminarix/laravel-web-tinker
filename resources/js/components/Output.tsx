@@ -27,8 +27,8 @@ const Output: React.FC<OutputProps> = ({ loading, output, skeletonWidths }) => {
                                         {skeletonWidths.map((width, index) => (
                                             <Skeleton
                                                 key={index}
-                                                baseColor={"#111827"}
-                                                highlightColor={"#28395c"}
+                                                baseColor={'#111827'}
+                                                highlightColor={'#28395c'}
                                                 enableAnimation={true}
                                                 width={`${Math.floor(width * 100)}%`}
                                             />
@@ -39,8 +39,8 @@ const Output: React.FC<OutputProps> = ({ loading, output, skeletonWidths }) => {
                                         <span className="text-gray-400">
                                             Output will appear here...
                                             <div className="my-6"></div>
-                                            You can press{" "}
-                                            <kbd>Ctrl + Enter</kbd> or{" "}
+                                            You can press{' '}
+                                            <kbd>Ctrl + Enter</kbd> or{' '}
                                             <kbd>Cmd + Enter</kbd> to run
                                             the code.
                                         </span>

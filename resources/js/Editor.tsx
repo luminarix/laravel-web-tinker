@@ -11,20 +11,20 @@ import CodeEditor from './components/CodeEditor';
 import Output from './components/Output';
 
 const stateFields = { history: historyField };
-const editorStateKey = "editorState";
-const editorValueKey = "editorValue";
-const editorTabNameKey = "editorTabName";
-const selectedTabKey = "selectedTab";
-const splitterStateKey = "splitterState";
+const editorStateKey = 'editorState';
+const editorValueKey = 'editorValue';
+const editorTabNameKey = 'editorTabName';
+const selectedTabKey = 'selectedTab';
+const splitterStateKey = 'splitterState';
 
 export default function Editor({ path }: { path: string }) {
-    const [output, setOutput] = useState("");
-    const [tabs, setTabs] = useState(valueInStorageAsNumbers(editorValueKey));
-    const [activeTab, setActiveTab] = useState(valueInStorageAsNumber(selectedTabKey));
-    const [state, setState] = useState(valueInStorage(editorStateKey, activeTab));
-    const [loading, setLoading] = useState(false);
-    const [startTime, setStartTime] = useState(0);
-    const [_, setElapsedTime] = useState(0);
+    const [ output, setOutput ] = useState('');
+    const [ tabs, setTabs ] = useState(valueInStorageAsNumbers(editorValueKey));
+    const [ activeTab, setActiveTab ] = useState(valueInStorageAsNumber(selectedTabKey));
+    const [ state, setState ] = useState(valueInStorage(editorStateKey, activeTab));
+    const [ loading, setLoading ] = useState(false);
+    const [ startTime, setStartTime ] = useState(0);
+    const [ _, setElapsedTime ] = useState(0);
     const skeletonWidths = useRef(generateRandomArray());
 
     useEffect(() => {
@@ -37,22 +37,22 @@ export default function Editor({ path }: { path: string }) {
         }
 
         return () => clearInterval(interval);
-    }, [loading, startTime]);
+    }, [ loading, startTime ]);
 
     useEffect(() => {
         const nextState = valueInStorage(editorStateKey, activeTab);
 
-        setState(nextState || "");
-    }, [activeTab]);
+        setState(nextState || '');
+    }, [ activeTab ]);
 
     useEffect(() => {
         if (tabs.length === 0) {
             addTab();
         }
-    }, [tabs]);
+    }, [ tabs ]);
 
     function handleKeyDown(event: React.KeyboardEvent) {
-        if (event.code === "Enter" && (event.ctrlKey || event.metaKey)) {
+        if (event.code === 'Enter' && (event.ctrlKey || event.metaKey)) {
             event.preventDefault();
             event.stopPropagation();
             void sendCurrentCode();
@@ -76,7 +76,7 @@ export default function Editor({ path }: { path: string }) {
             const result = await axios.post(path, { code });
             setOutput(result.data);
         } catch (error) {
-            console.error("Error executing code:", error);
+            console.error('Error executing code:', error);
         } finally {
             setLoading(false);
             setElapsedTime(0);
@@ -94,8 +94,8 @@ export default function Editor({ path }: { path: string }) {
 
     function addTab() {
         const newTabIndex = (tabs[tabs.length - 1] ?? 0) + 1;
-        setTabs((prevTabs: number[]) => [...prevTabs, newTabIndex]);
-        valueInStorage(editorValueKey, newTabIndex, "");
+        setTabs((prevTabs: number[]) => [ ...prevTabs, newTabIndex ]);
+        valueInStorage(editorValueKey, newTabIndex, '');
         selectTab(newTabIndex);
     }
 
@@ -117,18 +117,18 @@ export default function Editor({ path }: { path: string }) {
 
     return (
         <Splitter
-            minHeights={[0, 0]}
-            initialSizes={(localStorage.getItem(splitterStateKey) || "50,50").split(",").map(Number)}
-            minWidths={[500,500]}
+            minHeights={[ 0, 0 ]}
+            initialSizes={(localStorage.getItem(splitterStateKey) || '50,50').split(',').map(Number)}
+            minWidths={[ 500, 500 ]}
             direction={SplitDirection.Horizontal}
-            gutterClassName={"bg-gray-800 min-h-screen"}
-            onResizeFinished={(_, newSizes) => localStorage.setItem(splitterStateKey, newSizes.join(","))}
+            gutterClassName={'bg-gray-800 min-h-screen'}
+            onResizeFinished={(_, newSizes) => localStorage.setItem(splitterStateKey, newSizes.join(','))}
         >
             <div className="h-screen flex flex-col border-r bg-gray-900 border-gray-800">
-                <Header loading={loading} onRun={sendCurrentCode} />
+                <Header loading={loading} onRun={sendCurrentCode}/>
                 <TabList
                     tabs={tabs}
-                    tabNames={JSON.parse(localStorage.getItem(editorTabNameKey) || "{}")}
+                    tabNames={JSON.parse(localStorage.getItem(editorTabNameKey) || '{}')}
                     activeTab={activeTab}
                     onAddTab={addTab}
                     onSelectTab={selectTab}
@@ -145,7 +145,7 @@ export default function Editor({ path }: { path: string }) {
                     />
                 </div>
             </div>
-           <Output
+            <Output
                 loading={loading}
                 output={output}
                 skeletonWidths={skeletonWidths.current}

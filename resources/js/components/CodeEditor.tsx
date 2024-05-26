@@ -1,6 +1,6 @@
 import React from 'react';
 import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
-import { EditorView } from "@codemirror/view";
+import { EditorView } from '@codemirror/view';
 import { php } from '@codemirror/lang-php';
 import { githubDark } from '@uiw/codemirror-theme-github';
 
@@ -38,7 +38,7 @@ const CodeEditor: React.FC<EditorProps> = ({ value, state, stateFields, onChange
             initialState={
                 state
                     ? {
-                        json: JSON.parse(state || ""),
+                        json: JSON.parse(state || ''),
                         fields: stateFields,
                     }
                     : undefined

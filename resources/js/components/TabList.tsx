@@ -21,8 +21,8 @@ const Tab: React.FC<TabProps> = ({
                                      onDeleteTab,
                                      onRenameTab,
                                  }) => {
-    const [editableTab, setEditableTab] = useState<number | null>(null);
-    const [tempTabName, setTempTabName] = useState("");
+    const [ editableTab, setEditableTab ] = useState<number | null>(null);
+    const [ tempTabName, setTempTabName ] = useState('');
 
     function handleDoubleClick(tabIndex: number) {
         setEditableTab(tabIndex);
@@ -30,11 +30,11 @@ const Tab: React.FC<TabProps> = ({
     }
 
     function handleNameChange(event: React.KeyboardEvent) {
-        if (event.key === "Enter") {
+        if (event.key === 'Enter') {
             tabNames[editableTab!] = tempTabName;
             setEditableTab(null);
             onRenameTab(editableTab!, tempTabName);
-        } else if (event.key === "Escape") {
+        } else if (event.key === 'Escape') {
             setEditableTab(null);
         }
     }
@@ -57,7 +57,7 @@ const Tab: React.FC<TabProps> = ({
                     ) : (
                         <Button
                             key={tab}
-                            className={`ml-1 py-2 px-4 hover:bg-gray-800 ${tab === activeTab ? "text-white bg-gray-700" : "text-gray-400"}`}
+                            className={`ml-1 py-2 px-4 hover:bg-gray-800 ${tab === activeTab ? 'text-white bg-gray-700' : 'text-gray-400'}`}
                             onClick={() => onSelectTab(tab)}
                             onDoubleClick={() => handleDoubleClick(tab)}
                         >
@@ -78,7 +78,7 @@ const Tab: React.FC<TabProps> = ({
                     className={`ml-1 py-2 px-4 hover:bg-gray-800 text-red-800 hover:text-red-400`}
                     onClick={() => onDeleteTab(activeTab)}
                 >
-                    <TrashIcon className="h-3 w-3" />
+                    <TrashIcon className="h-3 w-3"/>
                 </Button>
             )}
         </div>

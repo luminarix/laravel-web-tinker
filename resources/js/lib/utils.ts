@@ -1,8 +1,8 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+    return twMerge(clsx(inputs));
 }
 
 export function generateRandomArray() {
@@ -16,18 +16,18 @@ export function valueInStorage(
     tabIndex: number,
     value: string | null | undefined = undefined,
 ) {
-    const storedValueString = localStorage.getItem(storageKey) || "{}";
+    const storedValueString = localStorage.getItem(storageKey) || '{}';
     let storedValue;
 
     try {
         storedValue = JSON.parse(storedValueString);
     } catch (error) {
-        console.error("Error parsing JSON from localStorage:", error);
+        console.error('Error parsing JSON from localStorage:', error);
         storedValue = {};
     }
 
     if (value === undefined) {
-        return storedValue[tabIndex] || "";
+        return storedValue[tabIndex] || '';
     }
 
     if (value === null) {
@@ -39,16 +39,16 @@ export function valueInStorage(
     try {
         localStorage.setItem(storageKey, JSON.stringify(storedValue));
     } catch (error) {
-        console.error("Error stringifying JSON for localStorage:", error);
+        console.error('Error stringifying JSON for localStorage:', error);
     }
 }
 
-export function valueInStorageAsNumber(editorValueKey:string): number{
-    return parseInt(localStorage.getItem(editorValueKey) || "1");
+export function valueInStorageAsNumber(editorValueKey: string): number {
+    return parseInt(localStorage.getItem(editorValueKey) || '1');
 }
 
-export function valueInStorageAsNumbers(editorValueKey: string): number[]{
-   return Object.keys(
-        JSON.parse(localStorage.getItem(editorValueKey) || "{}"),
+export function valueInStorageAsNumbers(editorValueKey: string): number[] {
+    return Object.keys(
+        JSON.parse(localStorage.getItem(editorValueKey) || '{}'),
     ).map(Number);
 }
