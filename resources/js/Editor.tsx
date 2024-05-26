@@ -14,6 +14,7 @@ import TrashIcon from './components/icons/TrashIcon';
 import Splitter, { SplitDirection } from '@devbookhq/splitter';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { generateRandomArray } from './lib/utils';
 
 const stateFields = { history: historyField };
 const editorStateKey = "editorState";
@@ -176,12 +177,6 @@ export default function Editor({ path }: { path: string }) {
         if (activeTab === tabIndex && newTabs.length > 0) {
             selectTab(newTabs[newTabs.length - 1]);
         }
-    }
-
-    function generateRandomArray() {
-        const length = Math.floor(Math.random() * (7 - 3 + 1) + 3);
-
-        return Array.from({ length }, () => Math.random());
     }
 
     return (
