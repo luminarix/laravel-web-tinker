@@ -1,46 +1,30 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import CodeIcon from '@/components/icons/CodeIcon';
-import PlayIcon from '@/components/icons/PlayIcon';
-import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
-import { EditorView } from "@codemirror/view"
-import { php } from '@codemirror/lang-php';
-import { githubDark } from '@uiw/codemirror-theme-github';
+import { ViewUpdate } from '@uiw/react-codemirror';
 import { historyField } from '@codemirror/commands';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import parse from 'html-react-parser';
-import TrashIcon from './components/icons/TrashIcon';
 import Splitter, { SplitDirection } from '@devbookhq/splitter';
-import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { generateRandomArray, valueInStorage, valueInStorageAsNumber, valueInStorageAsNumbers } from './lib/utils';
+import Header from './components/Header';
+import TabList from './components/TabList';
+import CodeEditor from './components/CodeEditor';
+import Output from './components/Output';
 
 const stateFields = { history: historyField };
-const editorStateKey = "editorState";
-const editorValueKey = "editorValue";
-const editorTabNameKey = "editorTabName";
-const selectedTabKey = "selectedTab";
-const splitterStateKey = "splitterState";
+const editorStateKey = 'editorState';
+const editorValueKey = 'editorValue';
+const editorTabNameKey = 'editorTabName';
+const selectedTabKey = 'selectedTab';
+const splitterStateKey = 'splitterState';
 
 export default function Editor({ path }: { path: string }) {
-    const [output, setOutput] = useState("");
-    const [tabs, setTabs] = useState(
-        Object.keys(
-            JSON.parse(localStorage.getItem(editorValueKey) || "{}"),
-        ).map(Number),
-    );
-    const [activeTab, setActiveTab] = useState(
-        parseInt(localStorage.getItem(selectedTabKey) || "1"),
-    );
-    const [state, setState] = useState(
-        valueInStorage(editorStateKey, activeTab),
-    );
-    const [editableTab, setEditableTab] = useState<number | null>(null);
-    const [tempTabName, setTempTabName] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [startTime, setStartTime] = useState(0);
-
-    const [elapsedTime, setElapsedTime] = useState(0);
+    const [ output, setOutput ] = useState('');
+    const [ tabs, setTabs ] = useState(valueInStorageAsNumbers(editorValueKey));
+    const [ activeTab, setActiveTab ] = useState(valueInStorageAsNumber(selectedTabKey));
+    const [ state, setState ] = useState(valueInStorage(editorStateKey, activeTab));
+    const [ loading, setLoading ] = useState(false);
+    const [ startTime, setStartTime ] = useState(0);
+    const [ _, setElapsedTime ] = useState(0);
     const skeletonWidths = useRef(generateRandomArray());
 
     useEffect(() => {
@@ -53,69 +37,22 @@ export default function Editor({ path }: { path: string }) {
         }
 
         return () => clearInterval(interval);
-    }, [loading, startTime]);
+    }, [ loading, startTime ]);
 
     useEffect(() => {
         const nextState = valueInStorage(editorStateKey, activeTab);
 
-        setState(nextState || "");
-    }, [activeTab]);
+        setState(nextState || '');
+    }, [ activeTab ]);
 
     useEffect(() => {
         if (tabs.length === 0) {
             addTab();
         }
-    }, [tabs]);
-
-    function handleDoubleClick(tabIndex: number) {
-        setEditableTab(tabIndex);
-        setTempTabName(valueInStorage(editorTabNameKey, tabIndex) || `${tabIndex}`);
-    }
-
-    function handleNameChange(event: React.KeyboardEvent) {
-        if (event.key === "Enter") {
-            setEditableTab(null);
-
-            valueInStorage(editorTabNameKey, editableTab!, tempTabName);
-        } else if (event.key === "Escape") {
-            setEditableTab(null);
-        }
-    }
-
-    function valueInStorage(
-        storageKey: string,
-        tabIndex: number,
-        value: string | null | undefined = undefined,
-    ) {
-        const storedValueString = localStorage.getItem(storageKey) || "{}";
-        let storedValue;
-
-        try {
-            storedValue = JSON.parse(storedValueString);
-        } catch (error) {
-            console.error("Error parsing JSON from localStorage:", error);
-            storedValue = {};
-        }
-
-        if (value === undefined) {
-            return storedValue[tabIndex] || "";
-        }
-
-        if (value === null) {
-            delete storedValue[tabIndex];
-        } else {
-            storedValue[tabIndex] = value;
-        }
-
-        try {
-            localStorage.setItem(storageKey, JSON.stringify(storedValue));
-        } catch (error) {
-            console.error("Error stringifying JSON for localStorage:", error);
-        }
-    }
+    }, [ tabs ]);
 
     function handleKeyDown(event: React.KeyboardEvent) {
-        if (event.code === "Enter" && (event.ctrlKey || event.metaKey)) {
+        if (event.code === 'Enter' && (event.ctrlKey || event.metaKey)) {
             event.preventDefault();
             event.stopPropagation();
             void sendCurrentCode();
@@ -139,7 +76,7 @@ export default function Editor({ path }: { path: string }) {
             const result = await axios.post(path, { code });
             setOutput(result.data);
         } catch (error) {
-            console.error("Error executing code:", error);
+            console.error('Error executing code:', error);
         } finally {
             setLoading(false);
             setElapsedTime(0);
@@ -157,8 +94,8 @@ export default function Editor({ path }: { path: string }) {
 
     function addTab() {
         const newTabIndex = (tabs[tabs.length - 1] ?? 0) + 1;
-        setTabs((prevTabs: number[]) => [...prevTabs, newTabIndex]);
-        valueInStorage(editorValueKey, newTabIndex, "");
+        setTabs((prevTabs: number[]) => [ ...prevTabs, newTabIndex ]);
+        valueInStorage(editorValueKey, newTabIndex, '');
         selectTab(newTabIndex);
     }
 
@@ -178,168 +115,41 @@ export default function Editor({ path }: { path: string }) {
         }
     }
 
-    function generateRandomArray() {
-        const length = Math.floor(Math.random() * (7 - 3 + 1) + 3);
-
-        return Array.from({ length }, () => Math.random());
-    }
-
     return (
         <Splitter
-            minHeights={[0, 0]}
-            initialSizes={(localStorage.getItem(splitterStateKey) || "50,50").split(",").map(Number)}
-            minWidths={[500,500]}
+            minHeights={[ 0, 0 ]}
+            initialSizes={(localStorage.getItem(splitterStateKey) || '50,50').split(',').map(Number)}
+            minWidths={[ 500, 500 ]}
             direction={SplitDirection.Horizontal}
-            gutterClassName={"bg-gray-800 min-h-screen"}
-            onResizeFinished={(_, newSizes) => localStorage.setItem(splitterStateKey, newSizes.join(","))}
+            gutterClassName={'bg-gray-800 min-h-screen'}
+            onResizeFinished={(_, newSizes) => localStorage.setItem(splitterStateKey, newSizes.join(','))}
         >
             <div className="h-screen flex flex-col border-r bg-gray-900 border-gray-800">
-                <div className="flex h-14 items-center justify-between border-b px-4 border-gray-800">
-                    <div className="flex items-center gap-2">
-                        <CodeIcon className="h-5 w-5 mr-2 text-gray-400" />
-                        <span className="text-lg font-medium text-gray-50">
-                            Laravel Web Tinker
-                        </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        {loading ? (
-                            <span className="text-xs text-gray-400 font-mono">
-                                {(elapsedTime / 1000).toFixed(1)}s
-                            </span>
-                        ): (
-                            <Button
-                                className="h-8 w-8 hover:bg-gray-800 text-gray-400 hover:text-gray-50"
-                                size="icon"
-                                variant="ghost"
-                                onClick={sendCurrentCode}
-                            >
-                                <PlayIcon className="h-4 w-4" />
-                                <span className="sr-only">Run</span>
-                            </Button>
-                        )}
-                    </div>
-                </div>
-                <div className="border-b border-gray-800 flex justify-between">
-                    <div>
-                        {tabs.map((tab: number) =>
-                            editableTab === tab ? (
-                                <input
-                                    type="text"
-                                    value={tempTabName}
-                                    onChange={(e) =>
-                                        setTempTabName(e.target.value)
-                                    }
-                                    onKeyDownCapture={handleNameChange}
-                                    onBlur={() => setEditableTab(null)}
-                                    autoFocus
-                                    className="py-2 px-4 text-white bg-gray-700"
-                                />
-                            ) : (
-                                <Button
-                                    key={tab}
-                                    className={`ml-1 py-2 px-4 hover:bg-gray-800 ${tab === activeTab ? "text-white bg-gray-700" : "text-gray-400"}`}
-                                    onClick={() => selectTab(tab)}
-                                    onDoubleClick={() => handleDoubleClick(tab)}
-                                >
-                                    {valueInStorage(editorTabNameKey, tab) ||
-                                        tab}
-                                </Button>
-                            ),
-                        )}
-                        <Button
-                            className="ml-1 py-2 px-4 hover:bg-gray-800 text-gray-400"
-                            onClick={() => addTab()}
-                        >
-                            +
-                        </Button>
-                    </div>
-                    {tabs.length > 1 && (
-                        <Button
-                            key="delete"
-                            className={`ml-1 py-2 px-4 hover:bg-gray-800 text-red-800 hover:text-red-400`}
-                            onClick={() => deleteTab(activeTab)}
-                        >
-                            <TrashIcon className="h-3 w-3" />
-                        </Button>
-                    )}
-                </div>
+                <Header loading={loading} onRun={sendCurrentCode}/>
+                <TabList
+                    tabs={tabs}
+                    tabNames={JSON.parse(localStorage.getItem(editorTabNameKey) || '{}')}
+                    activeTab={activeTab}
+                    onAddTab={addTab}
+                    onSelectTab={selectTab}
+                    onDeleteTab={deleteTab}
+                    onRenameTab={(tabIndex, tabName) => valueInStorage(editorTabNameKey, tabIndex, tabName)}
+                />
                 <div className="flex-1 overflow-auto text-gray-400">
-                    <CodeMirror
-                        key={activeTab}
-                        onKeyDownCapture={(event) => handleKeyDown(event)}
-                        height="100%"
-                        theme={githubDark}
-                        extensions={[
-                            php({
-                                plain: true,
-                            }),
-                            EditorView.lineWrapping,
-                        ]}
-                        autoFocus={true}
-                        basicSetup={{
-                            allowMultipleSelections: true,
-                            tabSize: 4,
-                            bracketMatching: true,
-                            autocompletion: true,
-                            rectangularSelection: true,
-                            highlightActiveLine: true,
-                            syntaxHighlighting: true,
-                        }}
-                        className="h-full"
+                    <CodeEditor
                         value={valueInStorage(editorValueKey, activeTab)}
-                        initialState={
-                            state
-                                ? {
-                                      json: JSON.parse(state || ""),
-                                      fields: stateFields,
-                                  }
-                                : undefined
-                        }
+                        state={state}
+                        stateFields={stateFields}
                         onChange={handleChange}
+                        onKeyDownCapture={handleKeyDown}
                     />
                 </div>
             </div>
-            <div className="h-screen flex flex-col">
-                <div className="flex h-14 px-5 items-center justify-between bg-gray-900 border-gray-800">
-                    <span className="text-sm font-medium text-gray-50">
-                        Output
-                    </span>
-                </div>
-                <div className="flex-1 overflow-auto bg-slate-700">
-                    <Card className="h-full w-full bg-slate-700 text-gray-200 border-none">
-                        <CardContent className="px-5 py-3 font-mono text-sm">
-                            <pre>
-                                <code>
-                                    {loading ? (
-                                        <>
-                                            {skeletonWidths.current.map((width, index) => (
-                                                <Skeleton
-                                                    key={index}
-                                                    baseColor={"#111827"}
-                                                    highlightColor={"#28395c"}
-                                                    enableAnimation={true}
-                                                    width={`${Math.floor(width * 100)}%`}
-                                                />
-                                            ))}
-                                        </>
-                                    ) : (
-                                        (output && parse(output)) || (
-                                            <span className="text-gray-400">
-                                                Output will appear here...
-                                                <div className="my-6"></div>
-                                                You can press{" "}
-                                                <kbd>Ctrl + Enter</kbd> or{" "}
-                                                <kbd>Cmd + Enter</kbd> to run
-                                                the code.
-                                            </span>
-                                        )
-                                    )}
-                                </code>
-                            </pre>
-                        </CardContent>
-                    </Card>
-                </div>
-            </div>
+            <Output
+                loading={loading}
+                output={output}
+                skeletonWidths={skeletonWidths.current}
+            />
         </Splitter>
     );
 }

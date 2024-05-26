@@ -14,7 +14,7 @@ export default function PlayIcon(props: React.SVGProps<SVGSVGElement>) {
             strokeLinecap="round"
             strokeLinejoin="round"
         >
-            <polygon points="6 3 20 12 6 21 6 3" />
+            <polygon points="6 3 20 12 6 21 6 3"/>
         </svg>
     );
 }

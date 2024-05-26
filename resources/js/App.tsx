@@ -1,9 +1,9 @@
-import Editor from "./Editor";
+import Editor from './Editor';
 
 function App({ path }: { path: string }) {
     return (
         <>
-            <Editor path={path} />
+            <Editor path={path}/>
         </>
     );
 }
