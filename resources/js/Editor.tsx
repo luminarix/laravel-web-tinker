@@ -1,16 +1,14 @@
-import { Card, CardContent } from '@/components/ui/card';
 import { ViewUpdate } from '@uiw/react-codemirror';
 import { historyField } from '@codemirror/commands';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import parse from 'html-react-parser';
 import Splitter, { SplitDirection } from '@devbookhq/splitter';
-import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { generateRandomArray } from './lib/utils';
 import Header from './components/Header';
 import TabList from './components/TabList';
 import CodeEditor from './components/CodeEditor';
+import Output from './components/Output';
 
 const stateFields = { history: historyField };
 const editorStateKey = "editorState";
@@ -188,47 +186,11 @@ export default function Editor({ path }: { path: string }) {
                     />
                 </div>
             </div>
-            <div className="h-screen flex flex-col">
-                <div className="flex h-14 px-5 items-center justify-between bg-gray-900 border-gray-800">
-                    <span className="text-sm font-medium text-gray-50">
-                        Output
-                    </span>
-                </div>
-                <div className="flex-1 overflow-auto bg-slate-700">
-                    <Card className="h-full w-full bg-slate-700 text-gray-200 border-none">
-                        <CardContent className="px-5 py-3 font-mono text-sm">
-                            <pre>
-                                <code>
-                                    {loading ? (
-                                        <>
-                                            {skeletonWidths.current.map((width, index) => (
-                                                <Skeleton
-                                                    key={index}
-                                                    baseColor={"#111827"}
-                                                    highlightColor={"#28395c"}
-                                                    enableAnimation={true}
-                                                    width={`${Math.floor(width * 100)}%`}
-                                                />
-                                            ))}
-                                        </>
-                                    ) : (
-                                        (output && parse(output)) || (
-                                            <span className="text-gray-400">
-                                                Output will appear here...
-                                                <div className="my-6"></div>
-                                                You can press{" "}
-                                                <kbd>Ctrl + Enter</kbd> or{" "}
-                                                <kbd>Cmd + Enter</kbd> to run
-                                                the code.
-                                            </span>
-                                        )
-                                    )}
-                                </code>
-                            </pre>
-                        </CardContent>
-                    </Card>
-                </div>
-            </div>
+           <Output
+                loading={loading}
+                output={output}
+                skeletonWidths={skeletonWidths.current}
+            />
         </Splitter>
     );
 }
