@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-web-tinker` will be documented in this file.
 
+## v1.0.0 - 2024-07-10
+
+### What's Changed
+
+* chore(deps): bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/5
+
+### New Contributors
+
+* @dependabot made their first contribution in https://github.com/luminarix/laravel-web-tinker/pull/5
+
+**Full Changelog**: https://github.com/luminarix/laravel-web-tinker/compare/v0.1.5...v1.0.0
+
 ## v0.1.5 - 2024-05-26
 
 ### What's Changed
