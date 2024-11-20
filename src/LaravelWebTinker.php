@@ -23,7 +23,7 @@ class LaravelWebTinker
 
     public function __construct(OutputModifier $outputModifier)
     {
-        $this->output = new BufferedOutput();
+        $this->output = new BufferedOutput;
 
         $this->shell = $this->createShell($this->output);
 
