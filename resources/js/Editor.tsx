@@ -142,6 +142,7 @@ export default function Editor({ path }: { path: string }) {
                 />
                 <div className="flex-1 overflow-auto text-gray-400">
                     <CodeEditor
+                        key={activeTab}
                         value={valueInStorage(editorValueKey, activeTab)}
                         state={state}
                         stateFields={stateFields}
