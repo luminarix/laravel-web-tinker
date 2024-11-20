@@ -76,6 +76,7 @@ export default function Editor({ path }: { path: string }) {
             const result = await axios.post(path, { code });
             setOutput(result.data);
         } catch (error) {
+            setOutput(`Error executing code: ${(error as Error).message}`);
             console.error('Error executing code:', error);
         } finally {
             setLoading(false);
@@ -97,11 +98,13 @@ export default function Editor({ path }: { path: string }) {
         setTabs((prevTabs: number[]) => [ ...prevTabs, newTabIndex ]);
         valueInStorage(editorValueKey, newTabIndex, '');
         selectTab(newTabIndex);
+        setOutput('');
     }
 
     function selectTab(tabIndex: number) {
         setActiveTab(() => tabIndex);
         localStorage.setItem(selectedTabKey, tabIndex.toString());
+        setOutput('');
     }
 
     function deleteTab(tabIndex: number) {
@@ -113,6 +116,8 @@ export default function Editor({ path }: { path: string }) {
         if (activeTab === tabIndex && newTabs.length > 0) {
             selectTab(newTabs[newTabs.length - 1]);
         }
+
+        setOutput('');
     }
 
     return (
