@@ -76,7 +76,7 @@ export default function Editor({ path }: { path: string }) {
             const result = await axios.post(path, { code });
             setOutput(result.data);
         } catch (error) {
-            setOutput(`Error executing code: ${(error as Error).message}`);
+            setOutput(`Error executing code: ${(error as Error).message} - Please make sure you're logged in.`);
             console.error('Error executing code:', error);
         } finally {
             setLoading(false);
