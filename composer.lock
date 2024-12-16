@@ -6320,13 +6320,13 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.x-dev"
-                },
                 "laravel": {
                     "providers": [
                         "Laravel\\Pail\\PailServiceProvider"
                     ]
+                },
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
                 }
             },
             "autoload": {
@@ -6897,13 +6897,13 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "9.0-dev"
-                },
                 "laravel": {
                     "providers": [
                         "Orchestra\\Canvas\\Core\\LaravelServiceProvider"
                     ]
+                },
+                "branch-alias": {
+                    "dev-master": "9.0-dev"
                 }
             },
             "autoload": {
@@ -6934,16 +6934,16 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "v9.7.0",
+            "version": "v9.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "76b7e27da7a7d88d61087f258f88bc174b2cf7bd"
+                "reference": "88e90042d7428c646ece8acf4a69e7621369f14d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/76b7e27da7a7d88d61087f258f88bc174b2cf7bd",
-                "reference": "76b7e27da7a7d88d61087f258f88bc174b2cf7bd",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/88e90042d7428c646ece8acf4a69e7621369f14d",
+                "reference": "88e90042d7428c646ece8acf4a69e7621369f14d",
                 "shasum": ""
             },
             "require": {
@@ -6951,8 +6951,8 @@
                 "fakerphp/faker": "^1.23",
                 "laravel/framework": "^11.35.0",
                 "mockery/mockery": "^1.6.10",
-                "orchestra/testbench-core": "^9.7",
-                "orchestra/workbench": "^9.9",
+                "orchestra/testbench-core": "^9.8",
+                "orchestra/workbench": "^9.11",
                 "php": "^8.2",
                 "phpunit/phpunit": "^10.5.35 || ^11.3.6",
                 "symfony/process": "^7.0.3",
@@ -6983,22 +6983,22 @@
             ],
             "support": {
                 "issues": "https://github.com/orchestral/testbench/issues",
-                "source": "https://github.com/orchestral/testbench/tree/v9.7.0"
+                "source": "https://github.com/orchestral/testbench/tree/v9.8.0"
             },
-            "time": "2024-12-01T11:13:07+00:00"
+            "time": "2024-12-16T00:12:23+00:00"
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v9.7.0",
+            "version": "v9.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "4b405d310b14d092861ff2b3182ddfe96b7e826a"
+                "reference": "7717d92054493096f14d21fc06ec6c43db7a2f3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/4b405d310b14d092861ff2b3182ddfe96b7e826a",
-                "reference": "4b405d310b14d092861ff2b3182ddfe96b7e826a",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/7717d92054493096f14d21fc06ec6c43db7a2f3a",
+                "reference": "7717d92054493096f14d21fc06ec6c43db7a2f3a",
                 "shasum": ""
             },
             "require": {
@@ -7013,7 +7013,7 @@
                 "laravel/serializable-closure": "<1.3.0 || >=3.0.0",
                 "nunomaduro/collision": "<8.0.0 || >=9.0.0",
                 "orchestra/testbench-dusk": "<9.10.0 || >=10.0.0",
-                "phpunit/phpunit": "<10.5.35 || >=11.0.0 <11.3.6 || >=11.5.0"
+                "phpunit/phpunit": "<10.5.35 || >=11.0.0 <11.3.6 || >=11.6.0"
             },
             "require-dev": {
                 "fakerphp/faker": "^1.24",
@@ -7023,6 +7023,7 @@
                 "mockery/mockery": "^1.6.10",
                 "phpstan/phpstan": "^2.0",
                 "phpunit/phpunit": "^10.5.35 || ^11.3.6",
+                "spatie/laravel-ray": "^1.39",
                 "symfony/process": "^7.0.3",
                 "symfony/yaml": "^7.0.3",
                 "vlucas/phpdotenv": "^5.6.1"
@@ -7077,20 +7078,20 @@
                 "issues": "https://github.com/orchestral/testbench/issues",
                 "source": "https://github.com/orchestral/testbench-core"
             },
-            "time": "2024-12-01T09:31:00+00:00"
+            "time": "2024-12-15T14:14:32+00:00"
         },
         {
             "name": "orchestra/workbench",
-            "version": "v9.9.0",
+            "version": "v9.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/workbench.git",
-                "reference": "7cb4a6a01658e81d7079fd1780aa9fecc56a8643"
+                "reference": "1c0f93b0697c82cafea86234a2b09bbb6491abeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/workbench/zipball/7cb4a6a01658e81d7079fd1780aa9fecc56a8643",
-                "reference": "7cb4a6a01658e81d7079fd1780aa9fecc56a8643",
+                "url": "https://api.github.com/repos/orchestral/workbench/zipball/1c0f93b0697c82cafea86234a2b09bbb6491abeb",
+                "reference": "1c0f93b0697c82cafea86234a2b09bbb6491abeb",
                 "shasum": ""
             },
             "require": {
@@ -7101,10 +7102,11 @@
                 "laravel/tinker": "^2.9",
                 "nunomaduro/collision": "^8.0",
                 "orchestra/canvas": "^9.1",
-                "orchestra/testbench-core": "^9.7",
+                "orchestra/testbench-core": "^9.8",
                 "php": "^8.2",
                 "symfony/polyfill-php83": "^1.31",
                 "symfony/polyfill-php84": "^1.31",
+                "symfony/process": "^7.0.3",
                 "symfony/yaml": "^7.0.3"
             },
             "require-dev": {
@@ -7112,7 +7114,7 @@
                 "mockery/mockery": "^1.6.10",
                 "phpstan/phpstan": "^2.0",
                 "phpunit/phpunit": "^10.5.35 || ^11.3.6",
-                "symfony/process": "^7.0.3"
+                "spatie/laravel-ray": "^1.39"
             },
             "suggest": {
                 "ext-pcntl": "Required to use all features of the console signal trapping."
@@ -7142,9 +7144,9 @@
             ],
             "support": {
                 "issues": "https://github.com/orchestral/workbench/issues",
-                "source": "https://github.com/orchestral/workbench/tree/v9.9.0"
+                "source": "https://github.com/orchestral/workbench/tree/v9.11.0"
             },
-            "time": "2024-12-01T10:31:21+00:00"
+            "time": "2024-12-16T01:18:38+00:00"
         },
         {
             "name": "pestphp/pest",
@@ -8526,16 +8528,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.12.5",
+            "version": "v0.12.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "36a03ff27986682c22985e56aabaf840dd173cb5"
+                "reference": "d73fa3c74918ef4522bb8a3bf9cab39161c4b57c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/36a03ff27986682c22985e56aabaf840dd173cb5",
-                "reference": "36a03ff27986682c22985e56aabaf840dd173cb5",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/d73fa3c74918ef4522bb8a3bf9cab39161c4b57c",
+                "reference": "d73fa3c74918ef4522bb8a3bf9cab39161c4b57c",
                 "shasum": ""
             },
             "require": {
@@ -8599,9 +8601,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.12.5"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.7"
             },
-            "time": "2024-11-29T06:14:30+00:00"
+            "time": "2024-12-10T01:58:33+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -9539,8 +9541,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
