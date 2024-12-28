@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-web-tinker` will be documented in this file.
 
+## v1.0.3 - 2024-12-28
+
+### What's Changed
+
+* Fixed XSS by @xHeaven in https://github.com/luminarix/laravel-web-tinker/pull/10
+
+**Full Changelog**: https://github.com/luminarix/laravel-web-tinker/compare/v1.0.2...v1.0.3
+
 ## v1.0.2 - 2024-11-20
 
 **Full Changelog**: https://github.com/luminarix/laravel-web-tinker/compare/v1.0.1...v1.0.2
