@@ -2,6 +2,7 @@ import React from 'react';
 import parse from 'html-react-parser';
 import Skeleton from 'react-loading-skeleton';
 import { Card, CardContent } from '@/components/ui/card';
+import DOMPurify from 'dompurify';
 
 interface OutputProps {
     loading: boolean;
@@ -10,6 +11,10 @@ interface OutputProps {
 }
 
 const Output: React.FC<OutputProps> = ({ loading, output, skeletonWidths }) => {
+    const sanitizedOutput = DOMPurify.sanitize(output);
+
+    console.log(sanitizedOutput);
+
     return (
         <div className="h-screen flex flex-col">
             <div className="flex h-14 px-5 items-center justify-between bg-gray-900 border-gray-800">
@@ -35,7 +40,7 @@ const Output: React.FC<OutputProps> = ({ loading, output, skeletonWidths }) => {
                                         ))}
                                     </>
                                 ) : (
-                                    (output && parse(output)) || (
+                                    (output && parse(sanitizedOutput)) || (
                                         <span className="text-gray-400">
                                             Output will appear here...
                                             <div className="my-6"></div>
