@@ -116,6 +116,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Credits
 
+- [Spatie](https://github.com/spatie) and the [original contributors](https://github.com/spatie/laravel-web-tinker/contributors)
 - [Luminarix Labs](https://github.com/luminarix)
 - [Lajos Gere](https://github.com/gere-lajos)
 - [Márk Magyar](https://github.com/xHeaven)
