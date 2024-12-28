@@ -13,8 +13,6 @@ interface OutputProps {
 const Output: React.FC<OutputProps> = ({ loading, output, skeletonWidths }) => {
     const sanitizedOutput = DOMPurify.sanitize(output);
 
-    console.log(sanitizedOutput);
-
     return (
         <div className="h-screen flex flex-col">
             <div className="flex h-14 px-5 items-center justify-between bg-gray-900 border-gray-800">
