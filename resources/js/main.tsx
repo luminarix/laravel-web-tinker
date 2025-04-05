@@ -5,9 +5,10 @@ import '../css/index.css';
 
 const root = document.getElementById('root');
 const path = root?.dataset.path || '';
+const environment = root?.dataset.environment || 'unknown';
 
 ReactDOM.createRoot(root!).render(
     <React.StrictMode>
-        <App path={path}/>
+        <App path={path} environment={environment}/>
     </React.StrictMode>,
 );

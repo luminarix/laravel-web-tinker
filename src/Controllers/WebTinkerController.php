@@ -11,7 +11,9 @@ class WebTinkerController
 {
     public function index()
     {
-        return view('web-tinker::web-tinker');
+        return view('web-tinker::web-tinker', [
+            'environment' => app()->environment(),
+        ]);
     }
 
     public function execute(Request $request, LaravelWebTinker $tinker)
