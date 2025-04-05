@@ -1,9 +1,14 @@
 import Editor from './Editor';
 
-function App({ path }: { path: string }) {
+interface AppProps {
+    path: string;
+    environment: string;
+}
+
+function App({ path, environment }: AppProps) {
     return (
         <>
-            <Editor path={path}/>
+            <Editor path={path} environment={environment}/>
         </>
     );
 }
