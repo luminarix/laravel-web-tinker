@@ -2,6 +2,27 @@
 
 All notable changes to `laravel-web-tinker` will be documented in this file.
 
+## v1.1.0 - 2025-04-07
+
+### What's Changed
+
+* chore(deps-dev): bump orchestra/testbench from 10.0.0 to 10.1.0 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/21
+* chore(deps-dev): bump larastan/larastan from 3.1.0 to 3.2.0 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/22
+* chore(deps-dev): bump nunomaduro/collision from 8.6.1 to 8.7.0 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/24
+* chore(deps-dev): bump laravel/pint from 1.21.0 to 1.21.2 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/23
+* chore(deps): bump spatie/laravel-package-tools from 1.19.0 to 1.91.1 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/25
+* chore(deps): bump spatie/laravel-package-tools from 1.91.1 to 1.92.0 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/26
+* chore(deps-dev): bump pestphp/pest-plugin-arch from 3.0.0 to 3.1.0 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/27
+* chore(deps-dev): bump pestphp/pest from 3.7.4 to 3.8.0 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/28
+* chore(deps-dev): bump phpstan/phpstan-phpunit from 2.0.4 to 2.0.6 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/29
+* chore(deps-dev): bump pestphp/pest from 3.8.0 to 3.8.1 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/31
+* chore(deps-dev): bump nunomaduro/collision from 8.7.0 to 8.8.0 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/32
+* chore(deps-dev): bump larastan/larastan from 3.2.0 to 3.3.1 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/33
+* chore(deps-dev): bump orchestra/testbench from 10.1.0 to 10.2.0 by @dependabot in https://github.com/luminarix/laravel-web-tinker/pull/34
+* Show warning badge for production environment by @gere-lajos in https://github.com/luminarix/laravel-web-tinker/pull/35
+
+**Full Changelog**: https://github.com/luminarix/laravel-web-tinker/compare/v1.0.4...v1.1.0
+
 ## v1.0.4 - 2025-02-25
 
 ### What's Changed
