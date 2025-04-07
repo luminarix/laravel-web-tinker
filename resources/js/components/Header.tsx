@@ -6,9 +6,10 @@ import PlayIcon from '@/components/icons/PlayIcon';
 interface HeaderProps {
     loading: boolean;
     onRun: () => void;
+    environment: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ loading, onRun }) => {
+const Header: React.FC<HeaderProps> = ({ loading, onRun, environment }) => {
     const [ elapsedTime, setElapsedTime ] = useState(0);
     const [ startTime, setStartTime ] = useState(0);
 
@@ -35,6 +36,11 @@ const Header: React.FC<HeaderProps> = ({ loading, onRun }) => {
                 <span className="text-lg font-medium text-gray-50">
                     Laravel Web Tinker
                 </span>
+                {environment === 'production' && (
+                    <span className="ml-2 px-2 py-0.5 rounded bg-red-600 text-white text-xs font-bold">
+                        Production
+                    </span>
+                )}
             </div>
             <div className="flex items-center gap-2">
                 {loading ? (

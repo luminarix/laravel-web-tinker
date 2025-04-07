@@ -93,6 +93,6 @@ class LaravelWebTinker
         $output = preg_replace('/(?s)(<aside.*?<\/aside>)|Exit: {2}Ctrl\+D/ms', '$2', $output);
         $output = preg_replace('/(?s)(<whisper.*?<\/whisper>)|INFO {2}Ctrl\+D\./ms', '$2', $output);
 
-        return trim($output);
+        return mb_trim($output);
     }
 }

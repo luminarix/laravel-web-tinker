@@ -1,7 +1,7 @@
-import path from "path";
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { viteStaticCopy } from "vite-plugin-static-copy";
+import path from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
     plugins: [
@@ -9,16 +9,35 @@ export default defineConfig({
         viteStaticCopy({
             targets: [
                 {
-                    src: "resources/img",
-                    dest: "",
+                    src: 'resources/img',
+                    dest: '',
                 },
             ],
         }),
     ],
-    base: "/vendor/web-tinker/",
+    base: '/vendor/web-tinker/',
     resolve: {
         alias: {
-            "@": path.resolve(__dirname, "./resources/js"),
+            '@': path.resolve(__dirname, './resources/js'),
+        },
+    },
+    build: {
+        outDir: 'dist',
+        cssCodeSplit: false,
+        rollupOptions: {
+            input: {
+                production: path.resolve(__dirname, 'resources/js/main.production.tsx'),
+                development: path.resolve(__dirname, 'resources/js/main.development.tsx'),
+            },
+            output: {
+                entryFileNames: '[name].js',
+                assetFileNames: (assetInfo) => {
+                    if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+                        return 'app.css';
+                    }
+                    return '[name].[ext]';
+                }
+            },
         },
     },
 });

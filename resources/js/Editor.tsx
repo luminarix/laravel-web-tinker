@@ -17,7 +17,12 @@ const editorTabNameKey = 'editorTabName';
 const selectedTabKey = 'selectedTab';
 const splitterStateKey = 'splitterState';
 
-export default function Editor({ path }: { path: string }) {
+interface EditorProps {
+    path: string;
+    environment: string;
+}
+
+export default function Editor({ path, environment }: EditorProps) {
     const [ output, setOutput ] = useState('');
     const [ tabs, setTabs ] = useState(valueInStorageAsNumbers(editorValueKey));
     const [ activeTab, setActiveTab ] = useState(valueInStorageAsNumber(selectedTabKey));
@@ -130,7 +135,7 @@ export default function Editor({ path }: { path: string }) {
             onResizeFinished={(_, newSizes) => localStorage.setItem(splitterStateKey, newSizes.join(','))}
         >
             <div className="h-screen flex flex-col border-r bg-gray-900 border-gray-800">
-                <Header loading={loading} onRun={sendCurrentCode}/>
+                <Header loading={loading} onRun={sendCurrentCode} environment={environment}/>
                 <TabList
                     tabs={tabs}
                     tabNames={JSON.parse(localStorage.getItem(editorTabNameKey) || '{}')}
