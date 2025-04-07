@@ -8,6 +8,6 @@ const path = root?.dataset.path || '';
 
 ReactDOM.createRoot(root!).render(
     <React.StrictMode>
-        <App path={path} />
-    </React.StrictMode>
+        <App path={path} environment="development"/>
+    </React.StrictMode>,
 );

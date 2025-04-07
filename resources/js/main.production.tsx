@@ -7,5 +7,7 @@ const root = document.getElementById('root');
 const path = root?.dataset.path || '';
 
 ReactDOM.createRoot(root!).render(
-    <App path={path} />
+    <React.StrictMode>
+        <App path={path} environment="production"/>
+    </React.StrictMode>,
 );
